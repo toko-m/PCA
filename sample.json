@@ -1,0 +1,38 @@
+[
+	{
+		"name":	"precure",
+		"data":	{
+			"precure":	1,
+			"prettyRhythm":	0.5,
+			"aikatsu":	0.4,
+			"juelpet":	0.1
+		}
+	},
+		{
+		"name":	"prettyRhythm",
+		"data":	{
+			"precure":	0.5,
+			"prettyRhythm":	1,
+			"aikatsu":	0.8,
+			"juelpet":	0.3
+		}
+	},
+		{
+		"name":	"aikatsu",
+		"data":	{
+			"precure":	0.4,
+			"prettyRhythm":	0.8,
+			"aikatsu":	1,
+			"juelpet":	0.4
+		}
+	},
+		{
+		"name":	"juelpet",
+		"data":	{
+			"precure":	0.1,
+			"prettyRhythm":	0.3,
+			"aikatsu":	0.4,
+			"juelpet":	1
+		}
+	}
+]
