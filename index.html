@@ -1,10 +1,49 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
 	<meta charset="UTF-8">
 	<title>MVA in your browser</title>
+	<script src="./lib/angular/angular.min.js"></script>
+	<script>
+		var myApp = angular.module('myApp', []);
+
+		myApp.controller('inputController', function($scope, inputModel){
+			$scope.name = inputModel.name
+		});
+
+		myApp.factory('inputModel', function(){
+			return {
+				name : 'element name',
+				value : new Object()
+			}
+		});
+
+		window.onload = function () {
+			var input_table = document.getElementById("input_data");
+			input_table.firstChild;
+			var input_list = input_table.childNodes;
+			var input_title = input_table.firstChild;
+		}
+	</script>
 </head>
 <body>
-	hello. This is test page.
+	<p id="hoge">hogehoge</p>
+	<table id="input_data" border="1">
+		<tr>
+			<td>-</td>
+			<td>ブロッサム</td>
+			<td>マリン</td>
+		</tr>
+		<tr>
+			<td>ブロッサム</td>
+			<td></td>
+			<td></td>
+		</tr>		
+		<tr>
+			<td>マリン</td>
+			<td></td>
+			<td></td>
+		</tr>
+	</table>
 </body>
 </html>

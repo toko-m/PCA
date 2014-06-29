@@ -1,4 +1,4 @@
-MVA
+PCA
 ===
 
-MVA(Multivariate analysis) via a browser
+PCA(Principal components analisys) via a browser.
