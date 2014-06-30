@@ -8,10 +8,22 @@ label_name = []
 def mva_main():
 	print "hoge"
 
-class mva():
+class PCA():
+	def __init__(self):
+		self.InputData = InputData()
 
-	def hoge():
-		print "dammy"
+	def set_data_from_json(self, fp):
+		self.InputData.create_data_from_json(fp)
+
+	def set_data_from_csv(self, fp):
+		self.InputData.create_data_from_csv(fp)
+
+	def eigen_and_contr(self):
+		eigen = np.linalg.eigvals(self.InputData.mtrx_data)
+		print eigen
+		contr = eigen / sum(eigen)
+		print contr 
+
 
 class InputData():
 	def __init__(self):
@@ -45,5 +57,7 @@ if __name__ == '__main__':
 	input_data = InputData()
 
 	f = open("sample.json")
-	input_data.create_data_from_json(f)
+	PCA_instance = PCA()
+	PCA_instance.set_data_from_json(f)
+	PCA_instance.eigen()
 	f.close()
