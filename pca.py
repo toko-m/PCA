@@ -18,11 +18,32 @@ class PCA():
 	def set_data_from_csv(self, fp):
 		self.InputData.create_data_from_csv(fp)
 
-	def eigen_and_contr(self):
+	def is_inputdata_null(self):
+		if self.InputData.mtrx_data.size:
+			return True
+		else:
+			return False
+
+	def calc_eigen_and_contr(self):
+		if not self.is_inputdata_null():
+			#error
+			return False
+
 		eigen = np.linalg.eigvals(self.InputData.mtrx_data)
 		print eigen
 		contr = eigen / sum(eigen)
 		print contr 
+		cum_contr = []
+		cum_value = 0
+		for contr_n in contr:
+			cum_value = cum_value + contr_n
+			cum_contr.append(cum_value)
+		print cum_contr
+
+	def calc_coefficient(self):
+		if not self.is_inputdata_null():
+			#error
+			return False
 
 
 class InputData():
@@ -59,5 +80,5 @@ if __name__ == '__main__':
 	f = open("sample.json")
 	PCA_instance = PCA()
 	PCA_instance.set_data_from_json(f)
-	PCA_instance.eigen()
+	PCA_instance.calc_eigen_and_contr()
 	f.close()
