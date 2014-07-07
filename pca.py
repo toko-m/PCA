@@ -49,31 +49,32 @@ class PCA():
 		if not self.exist_inputdata():
 			raise Exception('InputData is null.')
 
-		print self.InputData.origin
 		cnt = 0
 		result = np.array([])
+
+		print "*** %s ***" % self.mtrx_type
+		
 		for eigen_value in self.eigen:
 			coef = []
 
 			if self.mtrx_type is MtrxType.CORRELATION:
-				print self.InputData.origin[:,cnt]
-				coef = self.InputData.origin[:,cnt] * eigen_value
+				coef = self.InputData.correlation * eigen_value
 			elif self.mtrx_type is MtrxType.VARIANCE_COVARIANCE:
-				print "var_covar"
+				coef = self.InputData.var_covar * eigen_value
 			elif self.mtrx_type is MtrxType.NORMARIZE:
-				coef = self.InputData.normarize[:,cnt] * eigen_value
+				coef = self.InputData.normarize * eigen_value
 			elif self.mtrx_type is None:
 				raise Exception('mtrx_type is None.')
 			else:
 				raise Exception('Invalid mtrx_type %s.') % self.mtrx_type
 
+			col_result = np.sum(coef, axis=0)
+			#print "---"
+			#print col_result
 			if result.size:
-				cp_result = result
-				result = np.vstack([cp_result, coef])
+				result = np.vstack([result, col_result])
 			else:
-				result = coef
-				
-			cnt = cnt + 1
+				result = col_result
 
 		print result
 
@@ -117,9 +118,17 @@ class InputData():
 		if not self.origin.size:
 			raise Exception('Input data does not exist.')
 
+		self.correlation = np.corrcoef(self.origin)
+		print "*** correlation ***"
+		print self.correlation
+
 	def set_variance_covariance_mtrx(self):
 		if not self.origin.size:
 			raise Exception('Input data does not exist.')
+
+		self.var_covar = np.cov(self.origin)
+		print "*** variance covariance ***"
+		print self.var_covar
 
 	def set_normarize_mtrx(self):
 		if not self.origin.size:
@@ -129,13 +138,16 @@ class InputData():
 		inv_stddev = 1 / np.std(self.origin)
 
 		self.normarize = (self.origin - average) * inv_stddev
+		print "*** normarize ***"
 		print self.normarize
 		
 if __name__ == '__main__':
 	input_data = InputData()
 
 	f = open("sample.json")
-	PCA_instance = PCA(MtrxType.NORMARIZE)
+	#PCA_instance = PCA(MtrxType.NORMARIZE)
+	#PCA_instance = PCA(MtrxType.CORRELATION)
+	PCA_instance = PCA(MtrxType.VARIANCE_COVARIANCE)
 	PCA_instance.set_data_from_json(f)
 	PCA_instance.calc_eigen_and_contr()
 	PCA_instance.calc_coefficient()
